@@ -11,12 +11,9 @@ import jakarta.persistence.Table;
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 7833563571614230986L;
-
-	public Usuario() {
-	}
 	
 	@Id
-	@Column(name="ID")
+	@Column(name="ID", nullable=false)
 	private Long id;
 	
 	@Column(name="NOMBRE", nullable=false)
