@@ -14,24 +14,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.rodriguez.db.entity.Usuario;
-import com.rodriguez.db.ws.ServicioUsuario;
+import com.rodriguez.db.entity.Producto;
+import com.rodriguez.db.ws.ServicioProducto;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/usuario")
-public class UsuarioController {
+@RequestMapping("/producto")
+public class ProductoController {
 
 @Autowired
-ServicioUsuario servicioImplementacion;
+ServicioProducto servicioImplementacion;
 
 @GetMapping("/obtener")
-public List<Usuario> obtener() {
+public List<Producto> obtener() {
 return this.servicioImplementacion.obtener();
 }
 
 @GetMapping("/obtener/{id}")
-public Optional<Usuario> obtener( @PathVariable Long id) {
+public Optional<Producto> obtener( @PathVariable Long id) {
 	
 // @PathVariable Long id			/obtener/1
 // @RequestParam Long id			?name=juan
@@ -41,9 +41,9 @@ return this.servicioImplementacion.obtener(id);
 }
 
 @PostMapping("/guardar")
-public ResponseEntity<Long> guardar( @RequestBody Usuario persona ) {
-Usuario newUser = this.servicioImplementacion.guardar(persona);
-return new ResponseEntity<Long>( newUser.getId(), HttpStatus.OK);
+public ResponseEntity<Long> guardar( @RequestBody Producto producto ) {
+Producto newProducto = this.servicioImplementacion.guardar(producto);
+return new ResponseEntity<Long>( newProducto.getId(), HttpStatus.OK);
 }
 
 @DeleteMapping("/eliminar/{id}")

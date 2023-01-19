@@ -14,24 +14,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.rodriguez.db.entity.Usuario;
-import com.rodriguez.db.ws.ServicioUsuario;
+import com.rodriguez.db.entity.Categoria;
+import com.rodriguez.db.ws.ServicioCategoria;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/usuario")
-public class UsuarioController {
+@RequestMapping("/categoria")
+public class CategoriaController {
 
 @Autowired
-ServicioUsuario servicioImplementacion;
+ServicioCategoria servicioImplementacion;
 
 @GetMapping("/obtener")
-public List<Usuario> obtener() {
+public List<Categoria> obtener() {
 return this.servicioImplementacion.obtener();
 }
 
 @GetMapping("/obtener/{id}")
-public Optional<Usuario> obtener( @PathVariable Long id) {
+public Optional<Categoria> obtener( @PathVariable Long id) {
 	
 // @PathVariable Long id			/obtener/1
 // @RequestParam Long id			?name=juan
@@ -41,9 +41,9 @@ return this.servicioImplementacion.obtener(id);
 }
 
 @PostMapping("/guardar")
-public ResponseEntity<Long> guardar( @RequestBody Usuario persona ) {
-Usuario newUser = this.servicioImplementacion.guardar(persona);
-return new ResponseEntity<Long>( newUser.getId(), HttpStatus.OK);
+public ResponseEntity<Long> guardar( @RequestBody Categoria categoria ) {
+Categoria newCategoria = this.servicioImplementacion.guardar(categoria);
+return new ResponseEntity<Long>( newCategoria.getId(), HttpStatus.OK);
 }
 
 @DeleteMapping("/eliminar/{id}")
@@ -52,4 +52,4 @@ this.servicioImplementacion.eliminar(id);
 }
 
 
-} // UsuarioController
+} // CategoriaController

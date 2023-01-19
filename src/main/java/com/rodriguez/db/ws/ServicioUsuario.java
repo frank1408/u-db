@@ -9,7 +9,7 @@ import com.rodriguez.db.wsinterface.IServicio;
 import com.rodriguez.db.repository.UsuarioRepository;
 
 @Service
-public class ServicioImplementacion implements IServicio {
+public class ServicioUsuario implements IServicio<Usuario> {
 
 	@Autowired
 	UsuarioRepository dbcontext;
