@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "nombre": "rural"
+    },
+    {
+        "id": 2,
+        "nombre": "galileo"
+    },
+    {
+        "id": 3,
+        "nombre": "panamericana"
+    }
+]
