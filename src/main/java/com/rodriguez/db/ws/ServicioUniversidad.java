@@ -1,4 +1,4 @@
-
+/*
 package com.rodriguez.db.ws;
 
 import java.util.List;
@@ -39,3 +39,4 @@ public class ServicioUniversidad implements IServicio<Universidad> {
 		return repository.findById(id);
 	}	
 }
+*/
