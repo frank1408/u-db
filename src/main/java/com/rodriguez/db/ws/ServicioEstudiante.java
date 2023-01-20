@@ -3,42 +3,36 @@ package com.rodriguez.db.ws;
 
 import java.util.List;
 import java.util.Optional;
-//import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import com.rodriguez.db.entity.Categoria;
+import com.rodriguez.db.entity.Estudiante;
 import com.rodriguez.db.wsinterface.IServicio;
-
 import jakarta.transaction.Transactional;
-
-import com.rodriguez.db.repository.ICategoriaRepository;
+import com.rodriguez.db.repository.IEstudianteRepository;
 
 @Component
 @Service
 @Transactional
-public class ServicioCategoria implements IServicio<Categoria> {
+public class ServicioEstudiante implements IServicio<Estudiante> {
 
 	@Autowired
-	ICategoriaRepository repository;
+	IEstudianteRepository repository;
 	
 	@Override
-	public List<Categoria> obtener(){
-		return (List<Categoria>) repository.findAll();
+	public List<Estudiante> obtener(){
+		return (List<Estudiante>) repository.findAll();
 	}
-	
 	@Override
-	public Categoria guardar(Categoria categoria) {
-		return repository.save(categoria);
+	public Estudiante guardar(Estudiante estudiante) {
+		return repository.save(estudiante);
 	}
-
 	@Override
 	public void eliminar(Long id) {
 		repository.deleteById(id);
 	}
-
 	@Override
-	public Optional<Categoria> obtener(Long id) {
+	public Optional<Estudiante> obtener(Long id) {
 		return repository.findById(id);
-	}	
+	}
 }

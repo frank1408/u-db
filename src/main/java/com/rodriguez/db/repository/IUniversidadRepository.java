@@ -4,12 +4,12 @@ package com.rodriguez.db.repository;
 import java.io.Serializable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.rodriguez.db.entity.Categoria;
+import com.rodriguez.db.entity.Universidad;
 
-@Repository("categoriaRepository")
-public interface ICategoriaRepository extends
+@Repository("universidadRepository")
+public interface IUniversidadRepository extends
 	//PagingAndSortingRepository<Categoria, Serializable>,
 	//CrudRepository<Categoria, Serializable>,
-	JpaRepository<Categoria, Serializable> {
+	JpaRepository<Universidad, Serializable> {
 }
 

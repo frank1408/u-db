@@ -6,29 +6,27 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import com.rodriguez.db.entity.Producto;
+import com.rodriguez.db.entity.Universidad;
 import com.rodriguez.db.wsinterface.IServicio;
-
 import jakarta.transaction.Transactional;
-
-import com.rodriguez.db.repository.IProductoRepository;
+import com.rodriguez.db.repository.IUniversidadRepository;
 
 @Component
 @Service
 @Transactional
-public class ServicioProducto implements IServicio<Producto> {
+public class ServicioUniversidad implements IServicio<Universidad> {
 
 	@Autowired
-	IProductoRepository repository;
+	IUniversidadRepository repository;
 	
 	@Override
-	public List<Producto> obtener(){
-		return (List<Producto>) repository.findAll();
+	public List<Universidad> obtener(){
+		return (List<Universidad>) repository.findAll();
 	}
 	
 	@Override
-	public Producto guardar(Producto producto) {
-		return repository.save(producto);
+	public Universidad guardar(Universidad categoria) {
+		return repository.save(categoria);
 	}
 
 	@Override
@@ -37,7 +35,7 @@ public class ServicioProducto implements IServicio<Producto> {
 	}
 
 	@Override
-	public Optional<Producto> obtener(Long id) {
+	public Optional<Universidad> obtener(Long id) {
 		return repository.findById(id);
 	}	
 }

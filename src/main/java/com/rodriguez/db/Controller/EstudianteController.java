@@ -15,24 +15,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.rodriguez.db.entity.Producto;
-import com.rodriguez.db.ws.ServicioProducto;
+import com.rodriguez.db.entity.Estudiante;
+import com.rodriguez.db.ws.ServicioEstudiante;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/producto")
-public class ProductoController {
+@RequestMapping("/estudiante")
+public class EstudianteController {
 
 @Autowired
-ServicioProducto service;
+ServicioEstudiante service;
 
 @GetMapping("/obtener")
-public List<Producto> obtener() {
+public List<Estudiante> obtener() {
 return service.obtener();
 }
 
 @GetMapping("/obtener/{id}")
-public Optional<Producto> obtener( @PathVariable Long id) {
+public Optional<Estudiante> obtener( @PathVariable Long id) {
 	
 // @PathVariable Long id			/obtener/1
 // @RequestParam Long id			?name=juan
@@ -42,18 +42,18 @@ return service.obtener(id);
 }
 
 @PostMapping("/guardar")
-public ResponseEntity<Long> guardar( @RequestBody Producto producto ) {
-Producto newProducto = service.guardar(producto);
-return new ResponseEntity<Long>( newProducto.getId(), HttpStatus.OK);
+public ResponseEntity<Long> guardar( @RequestBody Estudiante producto ) {
+	Estudiante newEstudiante = service.guardar(producto);
+return new ResponseEntity<Long>( newEstudiante.getId(), HttpStatus.OK);
 }
 
 @PostMapping("/guardar2")
-public ResponseEntity<List<Long>> guardar2( @RequestBody List<Producto> producto ) {
+public ResponseEntity<List<Long>> guardar2( @RequestBody List<Estudiante> producto ) {
 List<Long> losid = new ArrayList<Long>();
 
 producto.forEach( productoo -> {
-	Producto newProducto = service.guardar(productoo);
-	losid.add(newProducto.getId());
+	Estudiante newEstudiante = service.guardar(productoo);
+	losid.add(newEstudiante.getId());
 });
 
 return new ResponseEntity<List<Long>>( losid, HttpStatus.OK);
@@ -65,4 +65,4 @@ public void eliminar(@PathVariable Long id) {
 }
 
 
-} // UsuarioController
+} // EstudianteController
