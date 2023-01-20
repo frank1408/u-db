@@ -7,9 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.rodriguez.db.entity.Universidad;
 
 @Repository("universidadRepository")
-public interface IUniversidadRepository extends
-	//PagingAndSortingRepository<Categoria, Serializable>,
-	//CrudRepository<Categoria, Serializable>,
-	JpaRepository<Universidad, Serializable> {
+public interface IUniversidadRepository extends JpaRepository<Universidad, Serializable> {
 }
 

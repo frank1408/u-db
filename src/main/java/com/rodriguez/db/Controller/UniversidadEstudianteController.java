@@ -69,7 +69,7 @@ public class UniversidadEstudianteController {
 	return new ResponseEntity<Long>( newUniversidad.getId(), HttpStatus.OK);
 	}
 
-	@PostMapping("/guardar2")
+	@PostMapping("/universidad/guardar2")
 	public ResponseEntity<List<Long>> guardarUniversidad2( @RequestBody List<Universidad> universidad ) {
 		List<Long> losid = new ArrayList<Long>();
 		universidad.forEach( universidadd -> {
@@ -79,7 +79,7 @@ public class UniversidadEstudianteController {
 		return new ResponseEntity<List<Long>>( losid, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/eliminar/{id}")
+	@DeleteMapping("/universidad/eliminar/{id}")
 	public void eliminarUniversidad(@PathVariable Long id) {
 		service.eliminarUniversidad(id);
 	}

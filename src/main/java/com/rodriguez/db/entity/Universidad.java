@@ -50,23 +50,31 @@ public class Universidad implements Serializable {
 			orphanRemoval = true
 	)
 	private List<Estudiante> estudiantes;
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public List<Estudiante> getStudents() {
+
+	public List<Estudiante> getEstudiantes() {
 		return estudiantes;
 	}
-	public void setStudents(List<Estudiante> students) {
-		this.estudiantes = students;
+
+	public void setEstudiantes(List<Estudiante> estudiantes) {
+		this.estudiantes = estudiantes;
 	}
+	
+	
+	
 } // Universidad 1 - M Estudiantes
