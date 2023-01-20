@@ -4,34 +4,40 @@ package com.rodriguez.db.ws;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import com.rodriguez.db.entity.Producto;
 import com.rodriguez.db.wsinterface.IServicio;
-import com.rodriguez.db.repository.ProductoRepository;
 
+import jakarta.transaction.Transactional;
+
+import com.rodriguez.db.repository.IProductoRepository;
+
+@Component
 @Service
+@Transactional
 public class ServicioProducto implements IServicio<Producto> {
 
 	@Autowired
-	ProductoRepository dbcontext;
+	IProductoRepository repository;
 	
 	@Override
 	public List<Producto> obtener(){
-		return dbcontext.findAll();
+		return (List<Producto>) repository.findAll();
 	}
 	
 	@Override
 	public Producto guardar(Producto producto) {
-		return dbcontext.save(producto);
+		return repository.save(producto);
 	}
 
 	@Override
 	public void eliminar(Long id) {
-		this.dbcontext.deleteById(id);
+		repository.deleteById(id);
 	}
 
 	@Override
 	public Optional<Producto> obtener(Long id) {
-		return this.dbcontext.findById(id);
+		return repository.findById(id);
 	}	
 }

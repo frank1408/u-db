@@ -1,6 +1,7 @@
 
 package com.rodriguez.db.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,11 @@ import com.rodriguez.db.ws.ServicioProducto;
 public class ProductoController {
 
 @Autowired
-ServicioProducto servicioImplementacion;
+ServicioProducto service;
 
 @GetMapping("/obtener")
 public List<Producto> obtener() {
-return this.servicioImplementacion.obtener();
+return service.obtener();
 }
 
 @GetMapping("/obtener/{id}")
@@ -37,18 +38,30 @@ public Optional<Producto> obtener( @PathVariable Long id) {
 // @RequestParam Long id			?name=juan
 // @RequestBody Usuario persona		{"nombre":"juan","correo":"juan@gmail.com"}
 
-return this.servicioImplementacion.obtener(id);
+return service.obtener(id);
 }
 
 @PostMapping("/guardar")
 public ResponseEntity<Long> guardar( @RequestBody Producto producto ) {
-Producto newProducto = this.servicioImplementacion.guardar(producto);
+Producto newProducto = service.guardar(producto);
 return new ResponseEntity<Long>( newProducto.getId(), HttpStatus.OK);
+}
+
+@PostMapping("/guardar2")
+public ResponseEntity<List<Long>> guardar2( @RequestBody List<Producto> producto ) {
+List<Long> losid = new ArrayList<Long>();
+
+producto.forEach( productoo -> {
+	Producto newProducto = service.guardar(productoo);
+	losid.add(newProducto.getId());
+});
+
+return new ResponseEntity<List<Long>>( losid, HttpStatus.OK);
 }
 
 @DeleteMapping("/eliminar/{id}")
 public void eliminar(@PathVariable Long id) {
-this.servicioImplementacion.eliminar(id);
+	service.eliminar(id);
 }
 
 

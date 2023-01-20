@@ -6,10 +6,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
-@Table(name="USUARIO")
+//@Table(name="USUARIO")
+@ToString
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 7833563571614230986L;
@@ -17,7 +24,10 @@ public class Usuario implements Serializable {
 	@Id
 	@Column(name="ID", nullable=false)
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	//@GeneratedValue(strategy = GenerationType.TABLE)
+	//@GeneratedValue(strategy = GenerationType.UUID)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@Column(name="NOMBRE", nullable=false)
@@ -32,6 +42,46 @@ public class Usuario implements Serializable {
 	@Column(name="TELEFONO", nullable=false)
 	private String telefono;
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// constructores
+	/*
+	public Usuario() {
+	}
+	public Usuario(String nombree, String apellidoo, String correoo, String telefonoo) {
+		this.apellido=apellidoo;
+		this.correo=correoo;
+		this.nombre=nombree;
+		this.telefono=telefonoo;
+	}
+	*/
+	
+	
+	
+	/*
+	 	@CreationTimestamp
+	@Column(name="created_at", nullable=false, updatable=false)
+	private Date createdAt;
+	
+	@UpdateTimestamp
+	@Column(name="updated_at")
+	private Date updatedAt; 
+	 */
+	
+	
+	
+	
+	
+	
+	// get y set
 	public Long getId() {
 		return id;
 	}
@@ -71,8 +121,4 @@ public class Usuario implements Serializable {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	
-	
-	
-	
 } // Usuario
