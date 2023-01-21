@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -56,6 +57,7 @@ public class Universidad implements Serializable {
 			cascade=CascadeType.ALL,
 			orphanRemoval = false // true antes
 	)
+	@OrderBy("id")
 	private final Set<Estudiante> estudiantes = new HashSet<>();
 
 	public Long getId() {
