@@ -1,25 +1,29 @@
+
 package com.rodriguez.db.ws;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import com.rodriguez.db.entity.Usuario;
-import com.rodriguez.db.wsinterface.IServicio;
+import com.rodriguez.db.wsinterface.IWS;
 import jakarta.transaction.Transactional;
 import com.rodriguez.db.repository.IUsuarioRepository;
 
 @Component
 @Service
 @Transactional
-public class ServicioUsuario implements IServicio<Usuario> {
+public class WsUsuario implements IWS<Usuario> {
 
 	@Autowired
 	IUsuarioRepository repository;
 	
 	@Override
-	public List<Usuario> obtener(){
-		return repository.findAll();
+	public Set<Usuario> obtener(){
+		Set<Usuario> hs = new HashSet<Usuario>();
+		hs.addAll( repository.findAll() );
+		return hs;
 	}
 	
 	@Override

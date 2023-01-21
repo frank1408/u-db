@@ -14,34 +14,34 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.rodriguez.db.entity.Producto;
-import com.rodriguez.db.ws.WsProducto;
+import com.rodriguez.db.entity.Universidad;
+import com.rodriguez.db.ws.WsUniversidad;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/producto")
-public class ProductoController {
+@RequestMapping("/universidad")
+public class UniversidadController {
 	@Autowired
-	WsProducto service;
+	WsUniversidad service;
 	@GetMapping("/obtener")
-	public Set<Producto> obtener() {
-		return new HashSet<>(service.obtener());
+	public Set<Universidad> obtener() {
+		return service.obtener();
 	}
 	@GetMapping("/obtener/{id}")
-	public Producto obtener( @PathVariable Long id) {
+	public Universidad obtener( @PathVariable Long id) {
 		return service.obtener(id);
 	}
 	@PostMapping("/guardar")
-	public ResponseEntity<Long> guardar( @RequestBody Producto producto ) {
-		Producto newProducto = service.guardar(producto);
-		return new ResponseEntity<Long>( newProducto.getId(), HttpStatus.OK);
+	public ResponseEntity<Long> guardar( @RequestBody Universidad universidad ) {
+		Universidad newUniversidad = service.guardar(universidad);
+		return new ResponseEntity<Long>( newUniversidad.getId(), HttpStatus.OK);
 	}
 	@PostMapping("/guardar2")
-	public ResponseEntity<Set<Long>> guardar( @RequestBody Set<Producto> producto ) {
+	public ResponseEntity<Set<Long>> guardar( @RequestBody Set<Universidad> universidad ) {
 		Set<Long> losid = new HashSet<Long>();
-		producto.forEach( productoo -> {
-			Producto newProducto = service.guardar(productoo);
-			losid.add(newProducto.getId());
+		universidad.forEach( universidadd -> {
+			Universidad newUniversidad = service.guardar(universidadd);
+			losid.add(newUniversidad.getId());
 		});
 		return new ResponseEntity<Set<Long>>( losid, HttpStatus.OK);
 	}
@@ -49,4 +49,4 @@ public class ProductoController {
 	public void eliminar(@PathVariable Long id) {
 		service.eliminar(id);
 	}
-} // ProductoController
+} // UniversidadController

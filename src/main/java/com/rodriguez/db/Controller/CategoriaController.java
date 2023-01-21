@@ -15,40 +15,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.rodriguez.db.entity.Categoria;
-import com.rodriguez.db.ws.ServicioCategoriaProducto;
+import com.rodriguez.db.ws.WsCategoria;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/categoria")
 public class CategoriaController {
-	
 @Autowired
-ServicioCategoriaProducto service;
-	
+WsCategoria service;
 @GetMapping("/obtener")
-public Set<Categoria> obtenerCategoria() {
-	return service.obtenerCategoria();
+public Set<Categoria> obtener() {
+	return service.obtener();
 }
 @GetMapping("/obtener/{id}")
-public Categoria obtenerCategoria( @PathVariable Long id) {
-	return service.obtenerCategoria(id);
+public Categoria obtener( @PathVariable Long id) {
+	return service.obtener(id);
 }
 @PostMapping("/guardar")
-public ResponseEntity<Long> guardarCategoria( @RequestBody Categoria categoria ) {
-	Categoria newCategoria = service.guardarCategoria(categoria);
+public ResponseEntity<Long> guardar( @RequestBody Categoria categoria ) {
+	Categoria newCategoria = service.guardar(categoria);
 	return new ResponseEntity<Long>( newCategoria.getId(), HttpStatus.OK);
 }
 @PostMapping("/guardar2")
-public ResponseEntity<Set<Long>> guardarCategoria2( @RequestBody Set<Categoria> categoria ) {
+public ResponseEntity<Set<Long>> guardar( @RequestBody Set<Categoria> categoria ) {
 	Set<Long> losid = new HashSet<Long>();
 	categoria.forEach( categoriad -> {
-		Categoria newCategoria = service.guardarCategoria(categoriad);
+		Categoria newCategoria = service.guardar(categoriad);
 		losid.add(newCategoria.getId());
 	});
 	return new ResponseEntity<Set<Long>>( losid, HttpStatus.OK);
 }
 @DeleteMapping("/eliminar/{id}")
-public void eliminarCategoria(@PathVariable Long id) {
-	service.eliminarCategoria(id);
+public void eliminar(@PathVariable Long id) {
+	service.eliminar(id);
 }
 } // CategoriaController

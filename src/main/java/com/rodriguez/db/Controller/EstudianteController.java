@@ -14,34 +14,34 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.rodriguez.db.entity.Producto;
-import com.rodriguez.db.ws.WsProducto;
+import com.rodriguez.db.entity.Estudiante;
+import com.rodriguez.db.ws.WsEstudiante;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/producto")
-public class ProductoController {
+@RequestMapping("/estudiante")
+public class EstudianteController {
 	@Autowired
-	WsProducto service;
+	WsEstudiante service;
 	@GetMapping("/obtener")
-	public Set<Producto> obtener() {
+	public Set<Estudiante> obtener() {
 		return new HashSet<>(service.obtener());
 	}
 	@GetMapping("/obtener/{id}")
-	public Producto obtener( @PathVariable Long id) {
+	public Estudiante obtener( @PathVariable Long id) {
 		return service.obtener(id);
 	}
 	@PostMapping("/guardar")
-	public ResponseEntity<Long> guardar( @RequestBody Producto producto ) {
-		Producto newProducto = service.guardar(producto);
-		return new ResponseEntity<Long>( newProducto.getId(), HttpStatus.OK);
+	public ResponseEntity<Long> guardar( @RequestBody Estudiante estudiante ) {
+		Estudiante newEstudiante = service.guardar(estudiante);
+		return new ResponseEntity<Long>( newEstudiante.getId(), HttpStatus.OK);
 	}
 	@PostMapping("/guardar2")
-	public ResponseEntity<Set<Long>> guardar( @RequestBody Set<Producto> producto ) {
+	public ResponseEntity<Set<Long>> guardar( @RequestBody Set<Estudiante> estudiante ) {
 		Set<Long> losid = new HashSet<Long>();
-		producto.forEach( productoo -> {
-			Producto newProducto = service.guardar(productoo);
-			losid.add(newProducto.getId());
+		estudiante.forEach( estudiantee -> {
+			Estudiante newEstudiante = service.guardar(estudiantee);
+			losid.add(newEstudiante.getId());
 		});
 		return new ResponseEntity<Set<Long>>( losid, HttpStatus.OK);
 	}
@@ -49,4 +49,4 @@ public class ProductoController {
 	public void eliminar(@PathVariable Long id) {
 		service.eliminar(id);
 	}
-} // ProductoController
+} // EstudianteController
