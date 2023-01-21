@@ -1,8 +1,8 @@
 
 package com.rodriguez.db.ws;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -23,8 +23,10 @@ public class ServicioUniversidadEstudiante {
 	@Autowired
 	IEstudianteRepository repoEstudiante;
 
-	public List<Universidad> obtenerUniversidad() {
-		return repoUniversidad.findAll();
+	public Set<Universidad> obtenerUniversidad() {
+		Set<Universidad> hs = new HashSet<Universidad>();
+		hs.addAll( repoUniversidad.findAll() );
+		return hs;
 	}
 	public Universidad obtenerUniversidad(Long id) {
 		return repoUniversidad.findById(id).get();
@@ -37,8 +39,10 @@ public class ServicioUniversidadEstudiante {
 		repoUniversidad.delete( universidadDelete );
 	}
 	/*******************************************************/
-	public List<Estudiante> obtenerEstudiante() {
-		return repoEstudiante.findAll();
+	public Set<Estudiante> obtenerEstudiante() {
+		Set<Estudiante> hs = new HashSet<Estudiante>();
+		hs.addAll( repoEstudiante.findAll() );
+		return hs;
 	}
 	public Estudiante obtenerEstudiante(Long id) {
 		return repoEstudiante.findById(id).get();

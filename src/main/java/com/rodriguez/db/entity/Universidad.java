@@ -2,11 +2,10 @@
 package com.rodriguez.db.entity;
 
 import java.io.Serializable;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -55,9 +54,9 @@ public class Universidad implements Serializable {
 	@OneToMany(
 			mappedBy="universidad",
 			cascade=CascadeType.ALL,
-			orphanRemoval = true
+			orphanRemoval = false // true antes
 	)
-	private List<Estudiante> estudiantes;
+	private final Set<Estudiante> estudiantes = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -71,10 +70,26 @@ public class Universidad implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public List<Estudiante> getEstudiantes() {
+	public Set<Estudiante> getEstudiantes() {
 		return estudiantes;
 	}
-	public void setEstudiantes(List<Estudiante> estudiantes) {
-		this.estudiantes = estudiantes;
-	}	
+	
+	public void setEstudiantes(Set<Estudiante> estudiantes) {
+		//This will override the set/list that Hibernate is tracking.
+		//
+		//		this.estudiantes = estudiantes;
+		//
+		//This will override the set/list that Hibernate is tracking.
+		this.estudiantes.clear();
+		if( estudiantes != null ) {
+			this.estudiantes.addAll(estudiantes);
+		}
+	}
+	
+	public void addEstudiante(Estudiante estudiante) {
+		estudiantes.add(estudiante);
+	}
+	public void removeEstudiante(Estudiante estudiante) {
+		estudiantes.remove(estudiante);
+	}
 } // Universidad 1 - M Estudiantes

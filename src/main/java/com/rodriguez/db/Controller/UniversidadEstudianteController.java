@@ -1,9 +1,8 @@
 
 package com.rodriguez.db.Controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +27,8 @@ public class UniversidadEstudianteController {
 	ServicioUniversidadEstudiante service;
 	
 	@GetMapping("/estudiante/obtener")
-	public List<Estudiante> obtenerEstudiante() {
-		return service.obtenerEstudiante();
+	public Set<Estudiante> obtenerEstudiante() {
+		return new HashSet<>(service.obtenerEstudiante());
 	}
 	@GetMapping("/estudiante/obtener/{id}")
 	public Estudiante obtenerEstudiante( @PathVariable Long id) {
@@ -41,14 +40,14 @@ public class UniversidadEstudianteController {
 		return new ResponseEntity<Long>( newEstudiante.getId(), HttpStatus.OK);
 	}
 	@PostMapping("/estudiante/guardar2")
-	public ResponseEntity<List<Long>> guardarEstudiante2( @RequestBody List<Estudiante> estudiante ) {
-		List<Long> losid = new ArrayList<Long>();
+	public ResponseEntity<Set<Long>> guardarEstudiante2( @RequestBody Set<Estudiante> estudiante ) {
+		Set<Long> losid = new HashSet<Long>();
 
 		estudiante.forEach( estudiantee -> {
 			Estudiante newEstudiante = service.guardarEstudiante(estudiantee);
 			losid.add(newEstudiante.getId());
 		});
-		return new ResponseEntity<List<Long>>( losid, HttpStatus.OK);
+		return new ResponseEntity<Set<Long>>( losid, HttpStatus.OK);
 	}
 	@DeleteMapping("/estudiante/eliminar/{id}")
 	public void eliminarEstudiante(@PathVariable Long id) {
@@ -56,7 +55,7 @@ public class UniversidadEstudianteController {
 	}
 	/********/
 	@GetMapping("/universidad/obtener")
-	public List<Universidad> obtenerUniversidad() {
+	public Set<Universidad> obtenerUniversidad() {
 		return service.obtenerUniversidad();
 	}
 	@GetMapping("/universidad/obtener/{id}")
@@ -70,13 +69,13 @@ public class UniversidadEstudianteController {
 	}
 
 	@PostMapping("/universidad/guardar2")
-	public ResponseEntity<List<Long>> guardarUniversidad2( @RequestBody List<Universidad> universidad ) {
-		List<Long> losid = new ArrayList<Long>();
+	public ResponseEntity<Set<Long>> guardarUniversidad2( @RequestBody Set<Universidad> universidad ) {
+		Set<Long> losid = new HashSet<Long>();
 		universidad.forEach( universidadd -> {
 			Universidad newUniversidad = service.guardarUniversidad(universidadd);
 			losid.add(newUniversidad.getId());
 		});
-		return new ResponseEntity<List<Long>>( losid, HttpStatus.OK);
+		return new ResponseEntity<Set<Long>>( losid, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/universidad/eliminar/{id}")
