@@ -2,6 +2,9 @@
 package com.rodriguez.db.entity;
 
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -50,6 +53,7 @@ public class Estudiante implements Serializable {
 	//@MapsId("universidad_id")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="universidad_id")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Universidad universidad;
 
 	public Long getId() {
