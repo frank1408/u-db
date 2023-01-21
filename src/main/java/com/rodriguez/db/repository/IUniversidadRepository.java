@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.rodriguez.db.entity.Universidad;
 
 @Repository("universidadRepository")
-public interface IUniversidadRepository extends JpaRepository<Universidad, Serializable> {
+public interface IUniversidadRepository extends JpaRepository<Universidad, Long> {
 }
 

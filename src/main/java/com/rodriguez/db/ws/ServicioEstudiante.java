@@ -32,8 +32,8 @@ public class ServicioEstudiante implements IServicio<Estudiante> {
 		repository.deleteById(id);
 	}
 	@Override
-	public Optional<Estudiante> obtener(Long id) {
-		return repository.findById(id);
+	public Estudiante obtener(Long id) {
+		return repository.findById(id).get();
 	}
 }
 */

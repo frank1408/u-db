@@ -4,11 +4,14 @@ package com.rodriguez.db.entity;
 import java.io.Serializable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -17,14 +20,6 @@ import lombok.ToString;
 
 @Entity
 @Table(name="ESTUDIANTE")
-/*
-@SequenceGenerator(
-	    name="ProductoSEQ",
-	    sequenceName = "PRODUCTOSEQ",
-	    initialValue = 1, 
-	    allocationSize = 10
-)
-*/
 //@Getter
 //@Setter
 @EqualsAndHashCode
@@ -37,14 +32,23 @@ public class Estudiante implements Serializable {
 
 	@Id
 	@Column(name="ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(
+    name="jestudiante_seq",// nombre para usarlo en java
+    sequenceName = "estudiante_seq",// nombre real en db
+    initialValue = 1,
+    allocationSize = 1
+	)
+	@GeneratedValue(
+		strategy = GenerationType.SEQUENCE,
+		generator = "jestudiante_seq" //nombre en java
+	)
 	private Long id;
 	
 	@Column(name="NOMBRE")
 	private String nombre;
 
 	//@MapsId("universidad_id")
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="universidad_id")
 	private Universidad universidad;
 

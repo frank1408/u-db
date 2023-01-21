@@ -26,28 +26,28 @@ public class ServicioUniversidadEstudiante {
 	public List<Universidad> obtenerUniversidad() {
 		return repoUniversidad.findAll();
 	}
-	public Optional<Universidad> obtenerUniversidad(Long id) {
-		return repoUniversidad.findById(id);
+	public Universidad obtenerUniversidad(Long id) {
+		return repoUniversidad.findById(id).get();
 	}
 	public Universidad guardarUniversidad(Universidad universidad) {
 		return repoUniversidad.save(universidad);
 	}
 	public void eliminarUniversidad(Long id) {
-		Optional<Universidad> universidadDelete = repoUniversidad.findById(id);
-		repoUniversidad.delete( universidadDelete.get() );
+		Universidad universidadDelete = repoUniversidad.findById(id).get();
+		repoUniversidad.delete( universidadDelete );
 	}
 	/*******************************************************/
 	public List<Estudiante> obtenerEstudiante() {
 		return repoEstudiante.findAll();
 	}
-	public Optional<Estudiante> obtenerEstudiante(Long id) {
-		return repoEstudiante.findById(id);
+	public Estudiante obtenerEstudiante(Long id) {
+		return repoEstudiante.findById(id).get();
 	}
 	public Estudiante guardarEstudiante(Estudiante estudiante) {
 		return repoEstudiante.save(estudiante);
 	}
 	public void eliminarEstudiante(Long id) {
-		Optional<Estudiante> estudianteDelete = repoEstudiante.findById(id);
-		repoEstudiante.delete( estudianteDelete.get() );
+		Estudiante estudianteDelete = repoEstudiante.findById(id).get();
+		repoEstudiante.delete( estudianteDelete );
 	}
 }

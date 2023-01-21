@@ -35,8 +35,8 @@ public class ServicioUniversidad implements IServicio<Universidad> {
 	}
 
 	@Override
-	public Optional<Universidad> obtener(Long id) {
-		return repository.findById(id);
+	public Universidad obtener(Long id) {
+		return repository.findById(id).get();
 	}	
 }
 */

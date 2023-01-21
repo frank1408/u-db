@@ -32,7 +32,7 @@ public class UniversidadEstudianteController {
 		return service.obtenerEstudiante();
 	}
 	@GetMapping("/estudiante/obtener/{id}")
-	public Optional<Estudiante> obtenerEstudiante( @PathVariable Long id) {
+	public Estudiante obtenerEstudiante( @PathVariable Long id) {
 		return service.obtenerEstudiante(id);
 	}
 	@PostMapping("/estudiante/guardar")
@@ -60,7 +60,7 @@ public class UniversidadEstudianteController {
 		return service.obtenerUniversidad();
 	}
 	@GetMapping("/universidad/obtener/{id}")
-	public Optional<Universidad> obtenerUniversidad( @PathVariable Long id) {
+	public Universidad obtenerUniversidad( @PathVariable Long id) {
 		return service.obtenerUniversidad(id);
 	}
 	@PostMapping("/universidad/guardar")
