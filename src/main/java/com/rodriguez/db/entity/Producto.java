@@ -11,7 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
+//import jakarta.persistence.MapsId;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -21,28 +21,28 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name="ESTUDIANTE")
+@Table(name="PRODUCTO")
 //@Getter
 //@Setter
 @EqualsAndHashCode
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Estudiante implements Serializable {
+public class Producto implements Serializable {
 	
-	private static final long serialVersionUID = 2393546991961155509L;
+	private static final long serialVersionUID = -2204158727284936301L;
 
 	@Id
 	@Column(name="ID")
 	@SequenceGenerator(
-    name="jestudiante_seq",// nombre para usarlo en java
-    sequenceName = "estudiante_seq",// nombre real en db
+    name="jproducto_seq",// nombre para usarlo en java
+    sequenceName = "producto_seq",// nombre real en db
     initialValue = 1,
     allocationSize = 1
 	)
 	@GeneratedValue(
 		strategy = GenerationType.SEQUENCE,
-		generator = "jestudiante_seq" //nombre en java
+		generator = "jproducto_seq" //nombre en java
 	)
 	@OrderBy("id")
 	private Long id;
@@ -50,11 +50,11 @@ public class Estudiante implements Serializable {
 	@Column(name="NOMBRE")
 	private String nombre;
 
-	//@MapsId("universidad_id")
+	//@MapsId("categoria_id")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="universidad_id")
+	@JoinColumn(name="categoria_id")
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	private Universidad universidad;
+	private Categoria categoria;
 
 	public Long getId() {
 		return id;
@@ -68,10 +68,10 @@ public class Estudiante implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Universidad getUniversidad() {
-		return universidad;
+	public Categoria getCategoria() {
+		return categoria;
 	}
-	public void setUniversidad(Universidad universidad) {
-		this.universidad = universidad;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
-} // Estudiantes M - 1 Universidad
+} // Producto M - 1 Categoria

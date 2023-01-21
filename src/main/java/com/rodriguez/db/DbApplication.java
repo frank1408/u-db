@@ -8,29 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DbApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(
-				DbApplication.class,
-				args
-		);
-		/*
-		ApplicationContext appContext = SpringApplication.run(
-				DbApplication.class,
-				args
-		);
-		IEstudianteRepository estudianteRepository =
-			appContext.getBean(
-				IEstudianteRepository.class
-		);
-		IUniversidadRepository universidadRepository =
-			appContext.getBean(
-				IUniversidadRepository.class
-		);
-		*/
-		
-		
+			DbApplication.class,
+			args
+		);	
 	}
 }
-// https://codebun.com/spring-data-jpa-one-to-many-mapping-example/
-//https://codebun.com/spring-data-jpa-one-to-many-mapping-example/
-//https://codebun.com/spring-data-jpa-one-to-many-mapping-example/
-//https://codebun.com/spring-data-jpa-one-to-many-mapping-example/
-//https://codebun.com/spring-data-jpa-one-to-many-mapping-example/
