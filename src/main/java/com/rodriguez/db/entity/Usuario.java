@@ -1,3 +1,4 @@
+
 package com.rodriguez.db.entity;
 
 import java.io.Serializable;

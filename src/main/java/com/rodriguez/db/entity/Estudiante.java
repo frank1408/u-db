@@ -11,8 +11,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OrderBy;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -44,13 +42,11 @@ public class Estudiante implements Serializable {
 		strategy = GenerationType.SEQUENCE,
 		generator = "jestudiante_seq" //nombre en java
 	)
-	@OrderBy("id")
 	private Long id;
 	
 	@Column(name="NOMBRE")
 	private String nombre;
 
-	//@MapsId("universidad_id")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="universidad_id")
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

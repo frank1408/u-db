@@ -55,7 +55,7 @@ public class Categoria implements Serializable {
 	@OneToMany(
 			mappedBy="categoria",
 			cascade=CascadeType.ALL,
-			orphanRemoval = false // true antes
+			orphanRemoval = false
 	)
 	@OrderBy("id")
 	private final Set<Producto> productos = new HashSet<>();

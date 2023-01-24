@@ -13,7 +13,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OrderBy;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -55,10 +54,24 @@ public class Universidad implements Serializable {
 	@OneToMany(
 			mappedBy="universidad",
 			cascade=CascadeType.ALL,
-			orphanRemoval = false // true antes
+			orphanRemoval = false
 	)
-	@OrderBy("id")
 	private final Set<Estudiante> estudiantes = new HashSet<>();
+	
+	/*
+	// evitar delete en cascada
+	@PreRemove
+	private void nullificarUniversidadId() {
+		this.estudiantes.forEach( student -> {
+			student.setUniversidad(null);
+		} );
+	}
+	*/
+	
+	
+	
+	
+	
 
 	public Long getId() {
 		return id;
