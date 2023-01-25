@@ -1,37 +1,50 @@
 
 package com.rodriguez.db.ws;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import com.rodriguez.db.entity.Producto;
-import com.rodriguez.db.repository.IProductoRepository;
-import com.rodriguez.db.wsinterface.IWS;
-import jakarta.transaction.Transactional;
+import com.rodriguez.db.repository.ProductoRepository;
+import com.rodriguez.db.wsinterface.Iwebservice;
 
-@Component
-@Service
-@Transactional
-public class WsProducto implements IWS<Producto>{
+//@Component
+//@Service
+//@Transactional
+@RestController
+@CrossOrigin
+@RequestMapping("/producto")
+public class WsProducto implements Iwebservice<Producto>{
 	
 	@Autowired
-	IProductoRepository repoProducto;
+	ProductoRepository productoRepository;
 	
-	public Set<Producto> obtener() {
-		Set<Producto> hs = new HashSet<Producto>();
-		hs.addAll( repoProducto.findAll() );
-		return hs;
+	@GetMapping("/consultar")
+	public List<Producto> obtener() {
+		return productoRepository.findAll();
 	}
-	public Producto obtener(Long id) {
-		return repoProducto.findById(id).get();
+	
+	@GetMapping("/consultar/{id}")
+	public Producto obtener(@PathVariable Long id) {
+		return productoRepository.findById(id).get();
 	}
-	public Producto guardar(Producto producto) {
-		return repoProducto.save(producto);
+	
+	@PostMapping("/guardar")
+	public Producto guardar(@RequestBody Producto producto) {
+		return productoRepository.save(producto);
 	}
-	public void eliminar(Long id) {
-		Producto productoDelete = repoProducto.findById(id).get();
-		repoProducto.delete( productoDelete );
+	
+	@DeleteMapping("/eliminar/{id}")
+	public void eliminar(@PathVariable Long id) {
+		productoRepository.deleteById(id);
 	}
+	
+	
 }

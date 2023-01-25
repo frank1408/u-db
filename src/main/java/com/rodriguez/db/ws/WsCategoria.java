@@ -1,37 +1,49 @@
 
 package com.rodriguez.db.ws;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import com.rodriguez.db.entity.Categoria;
-import com.rodriguez.db.repository.ICategoriaRepository;
-import com.rodriguez.db.wsinterface.IWS;
-import jakarta.transaction.Transactional;
+import com.rodriguez.db.repository.CategoriaRepository;
+import com.rodriguez.db.wsinterface.Iwebservice;
 
-@Component
-@Service
-@Transactional
-public class WsCategoria implements IWS<Categoria> {
+//@Component      ?
+//@Service
+//@Transactional
+@RestController
+@CrossOrigin
+@RequestMapping("/categoria")
+public class WsCategoria implements Iwebservice<Categoria> {
 
 	@Autowired
-	ICategoriaRepository repoCategoria;
+	CategoriaRepository categoriaRepository;
 
-	public Set<Categoria> obtener() {
-		Set<Categoria> hs = new HashSet<Categoria>();
-		hs.addAll( repoCategoria.findAll() );
-		return hs;
+	@GetMapping("/consultar")
+	public List<Categoria> obtener() {
+		return categoriaRepository.findAll();
 	}
-	public Categoria obtener(Long id) {
-		return repoCategoria.findById(id).get();
+	
+	@GetMapping("/consultar/{id}")
+	public Categoria obtener( @PathVariable Long id) {
+		return categoriaRepository.findById(id).get();
 	}
-	public Categoria guardar(Categoria categoria) {
-		return repoCategoria.save(categoria);
+	
+	@PostMapping("/guardar")
+	public Categoria guardar( @RequestBody Categoria categoria ) {
+		return categoriaRepository.save(categoria);
 	}
-	public void eliminar(Long id) {
-		Categoria categoriaDelete = repoCategoria.findById(id).get();
-		repoCategoria.delete( categoriaDelete );
+	
+	@DeleteMapping("/eliminar/{id}")
+	public void eliminar( @PathVariable Long id) {
+		categoriaRepository.deleteById(id);
 	}
+	
 }

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import com.rodriguez.db.entity.Categoria;
 
 @Repository("categoriaRepository")
-public interface ICategoriaRepository extends JpaRepository<Categoria, Serializable>{
+public interface CategoriaRepository extends JpaRepository<Categoria, Serializable>{
 }

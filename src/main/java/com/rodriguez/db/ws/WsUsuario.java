@@ -1,43 +1,49 @@
 
 package com.rodriguez.db.ws;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import com.rodriguez.db.entity.Usuario;
-import com.rodriguez.db.wsinterface.IWS;
-import jakarta.transaction.Transactional;
-import com.rodriguez.db.repository.IUsuarioRepository;
+import com.rodriguez.db.wsinterface.Iwebservice;
+import com.rodriguez.db.repository.UsuarioRepository;
 
-@Component
-@Service
-@Transactional
-public class WsUsuario implements IWS<Usuario> {
+//@Component
+//@Service
+//@Transactional
+@RestController
+@CrossOrigin
+@RequestMapping("/usuario")
+public class WsUsuario implements Iwebservice<Usuario> {
 
 	@Autowired
-	IUsuarioRepository repository;
+	UsuarioRepository usuarioRepository;
 	
-	@Override
-	public Set<Usuario> obtener(){
-		Set<Usuario> hs = new HashSet<Usuario>();
-		hs.addAll( repository.findAll() );
-		return hs;
+	@GetMapping("/consultar")
+	public List<Usuario> obtener(){
+		return usuarioRepository.findAll();
 	}
 	
-	@Override
-	public Usuario guardar(Usuario usuario) {
-		return repository.save(usuario);
+	@GetMapping("/consultar/{id}")
+	public Usuario obtener(@PathVariable Long id) {
+		return usuarioRepository.findById(id).get();
+	}
+	
+	@PostMapping("/guardar")
+	public Usuario guardar(@RequestBody Usuario usuario) {
+		return usuarioRepository.save(usuario);
 	}
 
-	@Override
-	public void eliminar(Long id) {
-		repository.deleteById(id);
+	@DeleteMapping("/eliminar/{id}")
+	public void eliminar(@PathVariable Long id) {
+		usuarioRepository.deleteById(id);
 	}
 
-	@Override
-	public Usuario obtener(Long id) {
-		return repository.findById(id).get();
-	}	
 }

@@ -1,37 +1,49 @@
 
 package com.rodriguez.db.ws;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import com.rodriguez.db.entity.Universidad;
-import com.rodriguez.db.repository.IUniversidadRepository;
-import com.rodriguez.db.wsinterface.IWS;
-import jakarta.transaction.Transactional;
+import com.rodriguez.db.repository.UniversidadRepository;
+import com.rodriguez.db.wsinterface.Iwebservice;
 
-@Component
-@Service
-@Transactional
-public class WsUniversidad implements IWS<Universidad> {
+//@Component
+//@Service
+//@Transactional
+@RestController
+@CrossOrigin
+@RequestMapping("/universidad")
+public class WsUniversidad implements Iwebservice<Universidad> {
 
 	@Autowired
-	IUniversidadRepository repoUniversidad;
+	UniversidadRepository universidadRepository;
 
-	public Set<Universidad> obtener() {
-		Set<Universidad> hs = new HashSet<Universidad>();
-		hs.addAll( repoUniversidad.findAll() );
-		return hs;
+	@GetMapping("/consultar")
+	public List<Universidad> obtener() {
+		return universidadRepository.findAll();
 	}
-	public Universidad obtener(Long id) {
-		return repoUniversidad.findById(id).get();
+	
+	@GetMapping("/consultar/{id}")
+	public Universidad obtener(@PathVariable Long id) {
+		return universidadRepository.findById(id).get();
 	}
-	public Universidad guardar(Universidad universidad) {
-		return repoUniversidad.save(universidad);
+	
+	@PostMapping("/guardar")
+	public Universidad guardar(@RequestBody Universidad universidad) {
+		return universidadRepository.save(universidad);
 	}
-	public void eliminar(Long id) {
-		Universidad universidadDelete = repoUniversidad.findById(id).get();
-		repoUniversidad.delete( universidadDelete );
+	
+	@DeleteMapping("/eliminar/{id}")
+	public void eliminar(@PathVariable Long id) {
+		universidadRepository.deleteById(id);
 	}
+	
 }
