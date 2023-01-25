@@ -53,7 +53,7 @@ public class Universidad implements Serializable {
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@OneToMany(
 			mappedBy="universidad",
-			cascade=CascadeType.ALL,
+			cascade={CascadeType.PERSIST, CascadeType.MERGE},
 			orphanRemoval = false
 	)
 	private final Set<Estudiante> estudiantes = new HashSet<>();

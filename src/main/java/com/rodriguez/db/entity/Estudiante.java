@@ -48,7 +48,7 @@ public class Estudiante implements Serializable {
 	private String nombre;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="universidad_id")
+	@JoinColumn(name="universidad_id", nullable=false)
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Universidad universidad;
 
