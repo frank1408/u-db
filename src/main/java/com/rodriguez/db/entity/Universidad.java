@@ -58,21 +58,6 @@ public class Universidad implements Serializable {
 	)
 	private final Set<Estudiante> estudiantes = new HashSet<>();
 	
-	/*
-	// evitar delete en cascada
-	@PreRemove
-	private void nullificarUniversidadId() {
-		this.estudiantes.forEach( student -> {
-			student.setUniversidad(null);
-		} );
-	}
-	*/
-	
-	
-	
-	
-	
-
 	public Long getId() {
 		return id;
 	}
