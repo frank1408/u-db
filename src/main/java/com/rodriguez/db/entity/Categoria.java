@@ -13,7 +13,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OrderBy;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -54,10 +53,9 @@ public class Categoria implements Serializable {
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@OneToMany(
 			mappedBy="categoria",
-			cascade=CascadeType.ALL,
+			cascade={CascadeType.PERSIST, CascadeType.MERGE},
 			orphanRemoval = false
 	)
-	@OrderBy("id")
 	private final Set<Producto> productos = new HashSet<>();
 
 	public Long getId() {
