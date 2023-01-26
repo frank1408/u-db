@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.rodriguez.db.entity.Estudiante;
 import com.rodriguez.db.repository.EstudianteRepository;
+import com.rodriguez.db.service.EstudianteServicio;
 import com.rodriguez.db.wsinterface.Iwebservice;
 
 //@Component
@@ -25,6 +26,9 @@ public class WsEstudiante implements Iwebservice<Estudiante> {
 	
 	@Autowired
 	EstudianteRepository estudianteRepository;
+	
+	@Autowired
+	EstudianteServicio estudianteServicio;
 	
 	@GetMapping("/consultar")
 	public List<Estudiante> obtener() {
@@ -46,4 +50,54 @@ public class WsEstudiante implements Iwebservice<Estudiante> {
 		estudianteRepository.deleteById(id);
 	}
 	
+	
+	
+	
+	/*
+	 * servicios de busqueda/filtros
+	 * con consultas DSL
+	 * y con querys personalizadas
+	 */
+	@GetMapping("/consultar/nombre/{nombre}")
+	public List<Estudiante> obtenerPorNombre(@PathVariable("nombre") String nombre) {
+		return estudianteRepository.findByNombreContaining(nombre);
+	}
+	@GetMapping("/consultar/apellido/{apellido}")
+	public List<Estudiante> obtenerPorApellido(@PathVariable("apellido") String apellido) {
+		return estudianteRepository.findByApellidoContaining(apellido);
+	}
+	@GetMapping("/consultar/correo/{correo}")
+	public List<Estudiante> obtenerPorCorreo(@PathVariable("correo") String correo) {
+		return estudianteRepository.findByCorreoContaining(correo);
+	}
+	@GetMapping("/consultar/correo/nocontenga/{correo}")
+	public List<Estudiante> obtenerPorCorreoNoContenga(@PathVariable("correo") String correo) {
+		return estudianteRepository.findByCorreoNotContaining(correo);
+	}
+	@GetMapping("/consultar/estatura/{estatura}")
+	public List<Estudiante> obtenerPorEstatura(@PathVariable("estatura") Double estatura) {
+		return estudianteRepository.findByEstatura(estatura);
+	}
+	@GetMapping("/consultar/estatura/menoroigual/{estatura}")
+	public List<Estudiante> obtenerPorEstaturaMenorOIgual(@PathVariable("estatura") Double estatura) {
+		return estudianteRepository.findByEstaturaLessThanEqual(estatura);
+	}
+	/*
+	@GetMapping("/consultar/fechadenacimiento/{fechaDeNacimiento}")
+	public List<Map<String, Object>> obtenerPorFechaDeNacimiento(
+			@PathVariable("fechaDeNacimiento")
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+			LocalDateTime fechaDeNacimiento) {
+		return estudianteRepository.findByFechaDeNacimiento(fechaDeNacimiento);
+		return estudianteServicio.buscarPorFechaDeNacimiento(fechaDeNacimiento);
+	}
+	*/
+	@GetMapping("/consultar/gruposanguineo/{grupoSanguineo}")
+	public List<Estudiante> obtenerPorGrupoSanguineo(@PathVariable("grupoSanguineo") String grupoSanguineo) {
+		return estudianteRepository.findByGrupoSanguineo(grupoSanguineo);
+	}
+	@GetMapping("/consultar/pagomensual/{pagoMensual}")
+	public List<Estudiante> obtenerPorPagoMensual(@PathVariable("pagoMensual") Double pagoMensual) {
+		return estudianteRepository.findByPagoMensual(pagoMensual);
+	}
 }

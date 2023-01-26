@@ -33,10 +33,10 @@ public class Estudiante implements Serializable {
 	@Id
 	@Column(name="ID")
 	@SequenceGenerator(
-    name="jestudiante_seq",// nombre para usarlo en java
-    sequenceName = "estudiante_seq",// nombre real en db
-    initialValue = 1,
-    allocationSize = 1
+			name="jestudiante_seq",// nombre para usarlo en java
+			sequenceName = "estudiante_seq",// nombre real en db
+			initialValue = 1,
+			allocationSize = 1
 	)
 	@GeneratedValue(
 		strategy = GenerationType.SEQUENCE,
@@ -46,12 +46,37 @@ public class Estudiante implements Serializable {
 	
 	@Column(name="NOMBRE")
 	private String nombre;
+	
+	@Column(name="APELLIDO")
+	private String apellido;
+	
+	@Column(name="CORREO")
+	private String correo;
+	
+	@Column(name="ESTATURA", scale = 2)
+	private Double estatura;
+	
+	/*
+	@Column(name="FECHA_DE_NACIMIENTO")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private LocalDateTime fechaDeNacimiento;
+	//private Date fechaDeNacimiento;
+	//private LocalDate fechaDeNacimiento;
+	//private LocalDateTime fechaDeNacimiento;
+	*/
+		
+	@Column(name="GRUPO_SANGUINEO")
+	private String grupoSanguineo;
 
+	@Column(name="PAGO_MENSUAL", scale = 2)
+	private Double pagoMensual;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="universidad_id", nullable=false)
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Universidad universidad;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -69,5 +94,43 @@ public class Estudiante implements Serializable {
 	}
 	public void setUniversidad(Universidad universidad) {
 		this.universidad = universidad;
+	}
+	/*
+	public LocalDateTime getFechaDeNacimiento() {
+		return fechaDeNacimiento;
+	}
+	public void setFechaDeNacimiento(LocalDateTime fechaDeNacimiento) {
+		this.fechaDeNacimiento = fechaDeNacimiento;
+	}
+	*/
+	public String getApellido() {
+		return apellido;
+	}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+	public String getCorreo() {
+		return correo;
+	}
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+	public Double getPagoMensual() {
+		return pagoMensual;
+	}
+	public void setPagoMensual(Double pagoMensual) {
+		this.pagoMensual = pagoMensual;
+	}
+	public Double getEstatura() {
+		return estatura;
+	}
+	public void setEstatura(Double estatura) {
+		this.estatura = estatura;
+	}
+	public String getGrupoSanguineo() {
+		return grupoSanguineo;
+	}
+	public void setGrupoSanguineo(String grupoSanguineo) {
+		this.grupoSanguineo = grupoSanguineo;
 	}
 } // Estudiantes M - 1 Universidad

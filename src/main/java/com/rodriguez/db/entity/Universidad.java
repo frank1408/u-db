@@ -2,17 +2,17 @@
 package com.rodriguez.db.entity;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.CascadeType;
+//import java.util.HashSet;
+//import java.util.Set;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+//import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+//import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -49,6 +49,7 @@ public class Universidad implements Serializable {
 	@Column(name="NOMBRE")
 	private String nombre;
 
+	/*
 	@JsonIgnore
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@OneToMany(
@@ -57,6 +58,7 @@ public class Universidad implements Serializable {
 			orphanRemoval = false
 	)
 	private final Set<Estudiante> estudiantes = new HashSet<>();
+	*/
 	
 	public Long getId() {
 		return id;
@@ -70,6 +72,7 @@ public class Universidad implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	/*
 	public Set<Estudiante> getEstudiantes() {
 		return estudiantes;
 	}
@@ -92,4 +95,5 @@ public class Universidad implements Serializable {
 	public void removeEstudiante(Estudiante estudiante) {
 		estudiantes.remove(estudiante);
 	}
+	*/
 } // Universidad 1 - M Estudiantes
