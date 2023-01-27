@@ -2,6 +2,8 @@
 package com.rodriguez.db.ws;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,7 +35,11 @@ public class WsCategoria implements Iwebservice<Categoria> {
 	
 	@GetMapping("/consultar/{id}")
 	public Categoria obtener( @PathVariable Long id) {
-		return categoriaRepository.findById(id).get();
+		Optional<Categoria> categoria = categoriaRepository.findById(id);
+		if(categoria.isPresent()) {
+			return categoria.get();
+		}
+		return null;
 	}
 	
 	@PostMapping("/guardar")

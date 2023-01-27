@@ -1,7 +1,11 @@
 
 package com.rodriguez.db.ws;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,7 +41,11 @@ public class WsEstudiante implements Iwebservice<Estudiante> {
 	
 	@GetMapping("/consultar/{id}")
 	public Estudiante obtener(@PathVariable Long id) {
-		return estudianteRepository.findById(id).get();
+		Optional<Estudiante> estudiante = estudianteRepository.findById(id);
+		if(estudiante.isPresent()) {
+			return estudiante.get();
+		}
+		return null;
 	}
 	
 	@PostMapping("/guardar")
@@ -100,4 +108,26 @@ public class WsEstudiante implements Iwebservice<Estudiante> {
 	public List<Estudiante> obtenerPorPagoMensual(@PathVariable("pagoMensual") Double pagoMensual) {
 		return estudianteRepository.findByPagoMensual(pagoMensual);
 	}
+	
+	
+	
+	
+	
+	
+	/*
+	 * procedimiento almacenado
+	 * y funcion
+	 */
+	@PostMapping("/guardar3")
+	public void guardar3(@RequestBody Estudiante estudiante) {
+		estudianteServicio.ejecutarProcedimiento(estudiante);
+	}
+	@PostMapping("/guardar4")
+	public Object guardar4(@RequestBody Estudiante estudiante) {
+		return estudianteServicio.ejecutarFuncion(estudiante);
+	}
+	
+	
+	
+	
 }
