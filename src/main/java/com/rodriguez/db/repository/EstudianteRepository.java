@@ -18,4 +18,5 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Serializ
 	//public List<Estudiante> findByFechaDeNacimiento(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaDeNacimiento);
 	public List<Estudiante> findByGrupoSanguineo(String grupoSanguineo);
 	public List<Estudiante> findByPagoMensual(Double pagoMensual);
+	public List<Estudiante> findByPagoMensualGreaterThan(Double pagoMensual);
 }

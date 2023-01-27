@@ -1,11 +1,9 @@
 
 package com.rodriguez.db.ws;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -108,6 +106,10 @@ public class WsEstudiante implements Iwebservice<Estudiante> {
 	public List<Estudiante> obtenerPorPagoMensual(@PathVariable("pagoMensual") Double pagoMensual) {
 		return estudianteRepository.findByPagoMensual(pagoMensual);
 	}
+	@GetMapping("/consultar/pagomensual/mayorque/{pagoMensual}")
+	public List<Estudiante> obtenerPorPagoMensualMayorQue(@PathVariable("pagoMensual") Double pagoMensual) {
+		return estudianteRepository.findByPagoMensualGreaterThan(pagoMensual);
+	}
 	
 	
 	
@@ -127,6 +129,10 @@ public class WsEstudiante implements Iwebservice<Estudiante> {
 		return estudianteServicio.ejecutarFuncion(estudiante);
 	}
 	
+	@GetMapping("/join")
+	public List<Map<String,Object>> join() {
+		return estudianteServicio.ejecutarJoin();
+	}
 	
 	
 	
