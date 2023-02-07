@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,17 +19,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.rodriguez.db.entity.Estudiante;
+import com.rodriguez.db.entity.Producto;
 import com.rodriguez.db.repository.EstudianteRepository;
 import com.rodriguez.db.service.EstudianteServicio;
-import com.rodriguez.db.wsinterface.Iwebservice;
+import com.rodriguez.db.wsint.IServicio;
 
-//@Component
-//@Service
-//@Transactional
 @RestController
 @CrossOrigin
 @RequestMapping("/estudiante")
-public class WsEstudiante implements Iwebservice<Estudiante> {
+public class WsEstudiante implements IServicio<Estudiante> {
 	
 	@Autowired
 	EstudianteRepository estudianteRepository;
@@ -33,12 +36,12 @@ public class WsEstudiante implements Iwebservice<Estudiante> {
 	EstudianteServicio estudianteServicio;
 	
 	@GetMapping("/consultar")
-	public List<Estudiante> obtener() {
+	public List<Estudiante> consultar() {
 		return estudianteRepository.findAll();
 	}
 	
 	@GetMapping("/consultar/{id}")
-	public Estudiante obtener(@PathVariable Long id) {
+	public Estudiante consultarId(@PathVariable Long id) {
 		Optional<Estudiante> estudiante = estudianteRepository.findById(id);
 		if(estudiante.isPresent()) {
 			return estudiante.get();
@@ -52,18 +55,10 @@ public class WsEstudiante implements Iwebservice<Estudiante> {
 	}
 	
 	@DeleteMapping("/eliminar/{id}")
-	public void eliminar(@PathVariable Long id) {
+	public void eliminarId(@PathVariable Long id) {
 		estudianteRepository.deleteById(id);
 	}
 	
-	
-	
-	
-	/*
-	 * servicios de busqueda/filtros
-	 * con consultas DSL
-	 * y con querys personalizadas
-	 */
 	@GetMapping("/consultar/nombre/{nombre}")
 	public List<Estudiante> obtenerPorNombre(@PathVariable("nombre") String nombre) {
 		return estudianteRepository.findByNombreContaining(nombre);
@@ -88,16 +83,7 @@ public class WsEstudiante implements Iwebservice<Estudiante> {
 	public List<Estudiante> obtenerPorEstaturaMenorOIgual(@PathVariable("estatura") Double estatura) {
 		return estudianteRepository.findByEstaturaLessThanEqual(estatura);
 	}
-	/*
-	@GetMapping("/consultar/fechadenacimiento/{fechaDeNacimiento}")
-	public List<Map<String, Object>> obtenerPorFechaDeNacimiento(
-			@PathVariable("fechaDeNacimiento")
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-			LocalDateTime fechaDeNacimiento) {
-		return estudianteRepository.findByFechaDeNacimiento(fechaDeNacimiento);
-		return estudianteServicio.buscarPorFechaDeNacimiento(fechaDeNacimiento);
-	}
-	*/
+	
 	@GetMapping("/consultar/gruposanguineo/{grupoSanguineo}")
 	public List<Estudiante> obtenerPorGrupoSanguineo(@PathVariable("grupoSanguineo") String grupoSanguineo) {
 		return estudianteRepository.findByGrupoSanguineo(grupoSanguineo);
@@ -111,15 +97,6 @@ public class WsEstudiante implements Iwebservice<Estudiante> {
 		return estudianteRepository.findByPagoMensualGreaterThan(pagoMensual);
 	}
 	
-	
-	
-	
-	
-	
-	/*
-	 * procedimiento almacenado
-	 * y funcion
-	 */
 	@PostMapping("/guardar3")
 	public void guardar3(@RequestBody Estudiante estudiante) {
 		estudianteServicio.ejecutarProcedimiento(estudiante);
@@ -133,6 +110,19 @@ public class WsEstudiante implements Iwebservice<Estudiante> {
 	public List<Map<String,Object>> join() {
 		return estudianteServicio.ejecutarJoin();
 	}
+	
+	
+	
+	
+	
+	
+	@GetMapping("/consultar/pagina/{pagina}/{cantidad}")
+	public Page<Estudiante> consultarPagina(@PathVariable Integer pagina,@PathVariable Integer cantidad) {
+		Pageable paginador = PageRequest.of(pagina, cantidad, Sort.by(Direction.ASC,"id") );
+		return estudianteRepository.buscarPorPagina(paginador);
+	}
+	
+	
 	
 	
 	

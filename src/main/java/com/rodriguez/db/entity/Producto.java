@@ -13,35 +13,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Entity
 @Table(name="PRODUCTO")
-//@Getter
-//@Setter
-@EqualsAndHashCode
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
 public class Producto implements Serializable {
 	
 	private static final long serialVersionUID = -2204158727284936301L;
-
+	
 	@Id
 	@Column(name="ID")
-	@SequenceGenerator(
-    name="jproducto_seq",// nombre para usarlo en java
-    sequenceName = "producto_seq",// nombre real en db
-    initialValue = 1,
-    allocationSize = 1
-	)
-	@GeneratedValue(
-		strategy = GenerationType.SEQUENCE,
-		generator = "jproducto_seq" //nombre en java
-	)
+	@SequenceGenerator( name="productoSeq", sequenceName = "PRODUCTO_SEQ", initialValue = 1, allocationSize = 1 )
+	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "productoSeq" )
 	private Long id;
 	
 	@Column(name="NOMBRE")
@@ -51,7 +33,13 @@ public class Producto implements Serializable {
 	@JoinColumn(name="categoria_id", nullable=false)
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Categoria categoria;
-
+	
+	public Producto() {
+	}
+	public Producto(String nombre) {
+		this.nombre = nombre;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -70,4 +58,4 @@ public class Producto implements Serializable {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-} // Producto M - 1 Categoria
+}

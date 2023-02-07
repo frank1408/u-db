@@ -20,13 +20,12 @@ public class EstudianteServicio {
 	@Autowired
 	JdbcTemplate jt;
 	
-	/*
 	public List<Map<String, Object>> buscarPorNombre(String nombre){
-		String querySQL = "SELECT * FROM ESTUDIANTE WHERE NOMBRE = :NOMBRE";
-		SqlParameterSource sps = new MapSqlParameterSource().addValue("NOMBRE", nombre);
+		String querySQL = "SELECT * FROM ESTUDIANTE WHERE NOMBRE = :NOMBREE";
+		SqlParameterSource sps = new MapSqlParameterSource().addValue("NOMBREE", nombre);
 		return npjt.queryForList(querySQL, sps);
 	}
-	*/
+	
 	public void ejecutarProcedimiento(Estudiante estudiante) {
 		String querySQL = "call sp_estudiante_insert(?,?,?,?,?,?,?,?)";
 		jt.update(querySQL,
@@ -41,9 +40,6 @@ public class EstudianteServicio {
 		);
 	}
 	public Object ejecutarFuncion(Estudiante estudiante) {
-		/*
-		 * la funcion retorna el iva del pagoMensual del estudiante  
-		 */
 		String querySQL = "select mifuncionn1(?) from estudiante where id = ?";
 		Map<String,Object> res = jt.queryForMap(
 			querySQL,
@@ -58,4 +54,4 @@ public class EstudianteServicio {
 		SqlParameterSource sps = new MapSqlParameterSource();
 		return npjt.queryForList(querySQL, sps);
 	}
-} // EstudianteServicio
+}

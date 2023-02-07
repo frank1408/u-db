@@ -13,35 +13,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Entity
 @Table(name="ESTUDIANTE")
-//@Getter
-//@Setter
-@EqualsAndHashCode
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
 public class Estudiante implements Serializable {
 	
 	private static final long serialVersionUID = 2393546991961155509L;
 
 	@Id
 	@Column(name="ID")
-	@SequenceGenerator(
-			name="jestudiante_seq",// nombre para usarlo en java
-			sequenceName = "estudiante_seq",// nombre real en db
-			initialValue = 1,
-			allocationSize = 1
-	)
-	@GeneratedValue(
-		strategy = GenerationType.SEQUENCE,
-		generator = "jestudiante_seq" //nombre en java
-	)
+	@SequenceGenerator( name="estudianteSeq", sequenceName = "ESTUDIANTE_SEQ", initialValue = 1, allocationSize = 1 )
+	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "estudianteSeq" )
 	private Long id;
 	
 	@Column(name="NOMBRE")
@@ -55,16 +37,6 @@ public class Estudiante implements Serializable {
 	
 	@Column(name="ESTATURA", scale = 2)
 	private Double estatura;
-	
-	/*
-	@Column(name="FECHA_DE_NACIMIENTO")
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime fechaDeNacimiento;
-	//private Date fechaDeNacimiento;
-	//private LocalDate fechaDeNacimiento;
-	//private LocalDateTime fechaDeNacimiento;
-	*/
 		
 	@Column(name="GRUPO_SANGUINEO")
 	private String grupoSanguineo;
@@ -77,6 +49,22 @@ public class Estudiante implements Serializable {
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Universidad universidad;
 	
+	public Estudiante() {
+	}
+	public Estudiante(
+			String nombre,
+			String apellido,
+			String correo,
+			Double estatura,
+			String grupoSanguineo,
+			Double pagoMensual ) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.correo = correo;
+		this.estatura = estatura;
+		this.grupoSanguineo = grupoSanguineo;
+		this.pagoMensual = pagoMensual;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -94,15 +82,7 @@ public class Estudiante implements Serializable {
 	}
 	public void setUniversidad(Universidad universidad) {
 		this.universidad = universidad;
-	}
-	/*
-	public LocalDateTime getFechaDeNacimiento() {
-		return fechaDeNacimiento;
-	}
-	public void setFechaDeNacimiento(LocalDateTime fechaDeNacimiento) {
-		this.fechaDeNacimiento = fechaDeNacimiento;
-	}
-	*/
+	}	
 	public String getApellido() {
 		return apellido;
 	}
@@ -133,4 +113,4 @@ public class Estudiante implements Serializable {
 	public void setGrupoSanguineo(String grupoSanguineo) {
 		this.grupoSanguineo = grupoSanguineo;
 	}
-} // Estudiantes M - 1 Universidad
+}

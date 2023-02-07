@@ -9,33 +9,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Entity
 @Table(name="USUARIO")
-@ToString
-@EqualsAndHashCode
-@AllArgsConstructor
-@NoArgsConstructor
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 7833563571614230986L;
 	
 	@Id
 	@Column(name="ID")
-	@SequenceGenerator(
-	name="jusuario_seq",// nombre para usarlo en java
-    sequenceName = "universidad_seq",// nombre real en db
-    initialValue = 1, 
-    allocationSize = 1
-	)
-	@GeneratedValue(
-		strategy = GenerationType.SEQUENCE,
-		generator = "jusuario_seq"
-	)
+	@SequenceGenerator( name="usuarioSeq", sequenceName = "USUARIO_SEQ", initialValue = 1, allocationSize = 1 )
+	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "usuarioSeq" )
 	private Long id;
 	
 	@Column(name="NOMBRE")
@@ -49,7 +33,20 @@ public class Usuario implements Serializable {
 	
 	@Column(name="TELEFONO")
 	private String telefono;
-
+	
+	@Column(name="CONTRASENA")
+	private String contrasena;
+	
+	public Usuario() {
+	}
+	public Usuario(String nombre, String apellido, String correo, String telefono, String contrasena) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.correo = correo;
+		this.telefono = telefono;
+		this.contrasena = contrasena;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -80,4 +77,10 @@ public class Usuario implements Serializable {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-} // Usuario
+	public String getContrasena() {
+		return contrasena;
+	}
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
+}
