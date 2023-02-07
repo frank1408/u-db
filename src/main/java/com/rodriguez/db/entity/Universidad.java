@@ -2,11 +2,15 @@
 package com.rodriguez.db.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -25,6 +29,9 @@ public class Universidad implements Serializable {
 	@Column(name="NOMBRE")
 	private String nombre;
 	
+	@OneToMany( mappedBy = "universidadId", fetch = FetchType.EAGER, orphanRemoval = false  )
+	private final List<Estudiante> estudiantes = new ArrayList<>();
+	
 	public Universidad() {
 	}
 	public Universidad(String nombre) {
@@ -42,5 +49,20 @@ public class Universidad implements Serializable {
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	public List<Estudiante> getEstudiantes() {
+		return estudiantes;
+	}
+	public void setEstudiantes(List<Estudiante> estudiantes) {
+		this.estudiantes.clear();
+		if( !estudiantes.isEmpty() ) {
+			this.estudiantes.addAll(estudiantes);
+		}
+	}
+	public void addEstudiante(Estudiante estudiante) {
+		this.estudiantes.add(estudiante);
+	}
+	public void removeEstudiante(Estudiante estudiante) {
+		this.estudiantes.remove(estudiante);
 	}
 }

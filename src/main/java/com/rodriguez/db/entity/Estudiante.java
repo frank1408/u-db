@@ -2,15 +2,11 @@
 package com.rodriguez.db.entity;
 
 import java.io.Serializable;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -44,10 +40,9 @@ public class Estudiante implements Serializable {
 	@Column(name="PAGO_MENSUAL", scale = 2)
 	private Double pagoMensual;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="universidad_id", nullable=false)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	private Universidad universidad;
+
+	@Column(name="UNIVERSIDAD_ID", nullable=false)
+	private Long universidadId;
 	
 	public Estudiante() {
 	}
@@ -57,13 +52,15 @@ public class Estudiante implements Serializable {
 			String correo,
 			Double estatura,
 			String grupoSanguineo,
-			Double pagoMensual ) {
+			Double pagoMensual,
+			Long universidadId ) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.correo = correo;
 		this.estatura = estatura;
 		this.grupoSanguineo = grupoSanguineo;
 		this.pagoMensual = pagoMensual;
+		this.universidadId = universidadId;
 	}
 	public Long getId() {
 		return id;
@@ -77,11 +74,11 @@ public class Estudiante implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Universidad getUniversidad() {
-		return universidad;
+	public Long getUniversidadId() {
+		return universidadId;
 	}
-	public void setUniversidad(Universidad universidad) {
-		this.universidad = universidad;
+	public void setUniversidadId(Long universidadId) {
+		this.universidadId = universidadId;
 	}	
 	public String getApellido() {
 		return apellido;

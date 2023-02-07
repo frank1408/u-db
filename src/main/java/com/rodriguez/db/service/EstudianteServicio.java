@@ -36,7 +36,7 @@ public class EstudianteServicio {
 			estudiante.getEstatura(),
 			estudiante.getGrupoSanguineo(),
 			estudiante.getPagoMensual(),
-			estudiante.getUniversidad().getId()
+			estudiante.getUniversidadId()
 		);
 	}
 	public Object ejecutarFuncion(Estudiante estudiante) {
